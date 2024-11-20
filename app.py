@@ -1,27 +1,13 @@
 import pickle
 
 import pandas as pd
-import numpy as np
-import matplotlib
-import matplotlib.pyplot as plt
-import sys
-
-from networkx import read_multiline_adjlist
 from streamlit.components.v1 import html
-
 from streamlit_option_menu import option_menu
-from matplotlib import pyplot as plt
-from pyecharts.charts import Page
-import seaborn as sns
-import creat #这是有绘制各种图形函数的类
-import generated_data as gd #这是来生成图形的类
-import itemsyle_all as item #这是
-
 import streamlit as st
 st.set_page_config(layout="wide")
 data = pd.read_csv("./data/二手车上牌数据处理.csv")
 data1 = pd.read_csv('./data/二手车未上牌.csv')
-
+import eda
 with open('./data/info.txt','r',encoding='utf-8') as f:
     infos = f.read()
 def read_html(path):
@@ -35,8 +21,8 @@ def read_figure(filepath):
 with st.sidebar:
     selected = option_menu(
         menu_title='车辆二手车数据分析',  # required
-        options=["Home",'基本信息查询', '主要考虑因素','二手车可视化分析','时间信息前端可视化概览图'],  # 每个选项的名称
-        icons=["house", "list-ul", "chat", "bar-chart", "clock"],
+        options=["Home",'自动化EDA系统','基本信息查询', '主要考虑因素','二手车可视化分析','时间信息前端可视化概览图'],  # 每个选项的名称
+        icons=["house", "play","list-ul", "chat", "bar-chart", "clock"],
         menu_icon="browser-firefox",  # 标题旁边的图标
         default_index=0,  # optional
         orientation="vertical",  # 布局是垂直方向
@@ -237,20 +223,9 @@ elif selected == '时间信息前端可视化概览图':
         html(read_html('./result/保险到期的饼图分布.html'),height=800)
     elif main_selected == '年检到期间隔':
         html(read_html('./result/年检到期的饼图分布.html'),height=800)
-# elif selected == 'plot展示一些特征':
-#     option = st.selectbox(
-#         "请选择你想要查看的关系",
-#         ('x=x=驱动方式, y=price,hue=车辆级别.png', 'x=year,y=行驶距离(万公里),hue=车辆级别.png', 'x=行驶距离(万公里),y=price,hue=车辆级别.png'),
-#         index=0,
-#         placeholder="Select contact method...",
-#     )
-#     if option == 'x=x=驱动方式, y=price,hue=车辆级别.png':
-#         st.image('./result/x=x=驱动方式, y=price,hue=车辆级别.png')
-#     elif option == 'x=year,y=行驶距离(万公里),hue=车辆级别.png':
-#         st.image('./result/x=year,y=行驶距离(万公里),hue=车辆级别.png')
-#     elif option == 'x=行驶距离(万公里),y=price,hue=车辆级别.png':
-#         st.image('./result/x=行驶距离(万公里),y=price,hue=车辆级别.png')
-#车辆信息的展示
-import streamlit as st
+elif selected == '自动化EDA系统':
+    st.info('欢迎使用自动化EDA系统')
+    eda.dataeda()
+
 
 
